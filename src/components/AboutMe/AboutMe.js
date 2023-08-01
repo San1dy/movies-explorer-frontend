@@ -22,11 +22,11 @@ function AboutMe({ projectsConfig }) {
                 Из спорта люблю как и баскетбол , так и футбол. 
               </p>
             </div>
-            <a className='about-me__github-link' href='https://github.com/SkoroXoDTwo'>
+            <a className='about-me__github-link' href='https://github.com/San1dy'>
               Github
             </a>
           </div>
-          <img className='about-me__avatar' src="https://i.ibb.co/rf2RsRn/about-me-avatar.jpg" alt="аватар" />
+          <img className='about-me__avatar' src="" alt="аватар" />
         </div>
         <div className='about-me__portfolio'>
           <h3 className='about-me__portfolio-title'>
