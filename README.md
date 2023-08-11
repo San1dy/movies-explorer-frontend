@@ -1,4 +1,3 @@
 # movies-explorer-frontend
 
-Ссылка на макет - 
-Ссылка на проект - 
+Ссылка на макет - https://disk.yandex.ru/d/kmnA5wbzuBHokA

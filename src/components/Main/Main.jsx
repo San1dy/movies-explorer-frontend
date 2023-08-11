@@ -1,9 +1,9 @@
-import Header from '../Header/Header';
 import AboutMe from '../AboutMe/AboutMe';
-import NavTab from '../NavTab/NavTab';
-import Footer from '../Footer/Footer';
-import Promo from '../Promo/Promo';
 import AboutProject from '../AboutProject/AboutProject';
+import Footer from '../Footer/Footer';
+import Header from '../Header/Header';
+import NavTab from '../NavTab/NavTab';
+import Promo from '../Promo/Promo';
 import Techs from '../Techs/Techs';
 import './Main.css';
 
