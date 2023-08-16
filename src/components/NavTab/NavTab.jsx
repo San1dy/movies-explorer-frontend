@@ -1,6 +1,6 @@
 import './NavTab.css';
 
-function NavTab() {
+const NavTab = () => {
   return (
     <section className='nav-tab'>
       <div className='nav-tab__container'>
@@ -17,7 +17,7 @@ function NavTab() {
               </a>
             </li>
             <li>
-            <a className='nav-tab__link' href='#about-me'>
+              <a className='nav-tab__link' href='#about-me'>
                 Студент
               </a>
             </li>

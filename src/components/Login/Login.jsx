@@ -1,7 +1,39 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import './Login.css';
 
-function Login() {
+const Login = ({ handleLogin, isLoggedIn }) => {
+  const navigate = useNavigate();
+
+  const [formValue, setFormValue] = useState({
+    email: "",
+    password: "",
+  });
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/movies");
+    }
+
+    // if (isLoggedIn) {
+    //   navigate("/movies");
+    // }
+  }, [isLoggedIn, navigate]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormValue({
+      ...formValue,
+      [name]: value,
+    });
+  };
+
+  const onLogin = (e) => {
+    e.preventDefault();
+    handleLogin({ password: formValue.password, email: formValue.email })
+  }
+
   return (
     <div className='login'>
       <header className='login__header'>
@@ -11,20 +43,36 @@ function Login() {
         <h1 className='login__title'>
           Рады видеть!
         </h1>
-        <div className='login__container'>
+        <form className='login__container' onSubmit={onLogin}>
           <div className='login__inputs'>
             <div className='login__input-container'>
               <p className='login__input-title'>
                 E-mail
               </p>
-              <input className='login__input' type="email" placeholder='Введите email' required />
+              <input
+                className='login__input'
+                type="email"
+                name="email"
+                placeholder='Введите email'
+                onChange={handleChange}
+                value={formValue.email}
+                required
+              />
               <p className='login__input-error'>Что-то пошло не так...</p>
             </div>
             <div className='login__input-container'>
               <p className='login__input-title'>
                 Пароль
               </p>
-              <input className='login__input' type='password'  placeholder='Введите пароль' required />
+              <input
+                className='login__input'
+                type='password'
+                name="password"
+                placeholder='Введите пароль'
+                onChange={handleChange}
+                value={formValue.password}
+                required
+              />
               <p className='login__input-error'>Что-то пошло не так...</p>
             </div>
           </div>
@@ -37,7 +85,7 @@ function Login() {
               <Link to="/signup" className='login__footer-link'>Регистрация</Link>
             </div>
           </div>
-        </div>
+        </form>
       </main>
     </div>
   );
