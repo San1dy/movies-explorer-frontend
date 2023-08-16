@@ -1,6 +1,9 @@
+import './App.css';
+
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import './App.css';
+import { useLocation } from "react-router-dom";
+
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
@@ -9,56 +12,69 @@ import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import mainApi from '../../utils/MainApi';
 import { DEFAULT_ERROR, EDIT_PROFILE_ERRORS_OBJ, LOGIN_ERRORS_OBJ, REGISTER_ERRORS_OBJ } from '../../utils/constants';
 
 const App = () => {
-  const navigate = useNavigate;
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
   const [currentUser, setCurrentUser] = useState({
     name: '',
     email: ''
   });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [savedMovies, setSavedMovies] = useState([]);
-
+  const [isSavedMoviesApiUploaded, setIsSavedMoviesApiUploaded] = useState(false);
 
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
+
     if (jwt) {
-      checkToken(jwt)
-        mainApi
+      checkToken(jwt);
+      uploadSavedMoviesFromApi();
+    }
+  }, [])
+
+  const checkToken = (jwt, pathRedirect) => {
+    mainApi
+      .checkToken(jwt)
+      .then(({ data }) => {
+        setCurrentUser({ name: data.name, email: data.email });
+        setIsLoggedIn(true);
+        pathRedirect ? navigate(pathRedirect) : navigate(pathname);
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsLoggedIn(false);
+      });
+  }
+
+  const uploadSavedMoviesFromApi = () => {
+    const jwt = localStorage.getItem("jwt");
+
+    if (!isSavedMoviesApiUploaded) {
+      mainApi
         .getMovies({ jwt })
         .then((movies) => {
+          setIsSavedMoviesApiUploaded(true);
           setSavedMovies(movies.data);
         })
         .catch((err) => {
           console.log(err);
         })
     }
-  }, [])
-
-  const checkToken = (jwt) => {
-    mainApi
-      .checkToken(jwt)
-      .then(({ data }) => {
-        setCurrentUser({ name: data.name, email: data.email });
-        setIsLoggedIn(true);
-      })
-      .catch((err) => {
-        console.log(err);
-        setIsLoggedIn(false);
-      });
-
   }
 
   const handleRegister = ({ password, email, name, setErrorApi }) => {
     mainApi
       .postRegister(password, email, name)
-      .then(({ data }) => {
+      .then(({ data, token }) => {
+        checkToken(token, '/movies')
         setIsLoggedIn(true);
         setCurrentUser({ name: data.name, email: data.email });
-        navigate('/movies');
+        localStorage.setItem('jwt', token)
       })
       .catch((err) => {
         setErrorApi({
@@ -69,34 +85,40 @@ const App = () => {
   };
 
   const handleLogin = ({ password, email, setErrorApi }) => {
-    api
+    mainApi
       .postLogin(password, email)
       .then((data) => {
-        checkToken(data.token)
+        checkToken(data.token, '/movies')
         setIsLoggedIn(true);
         localStorage.setItem('jwt', data.token)
-        navigate('/movies');
       })
       .catch((err) => {
         setErrorApi({
           message: LOGIN_ERRORS_OBJ[err] ? LOGIN_ERRORS_OBJ[err] : DEFAULT_ERROR
         });
+
         console.log(err);
       })
-
   };
 
   const handleSignOut = () => {
     localStorage.removeItem("jwt");
+    localStorage.removeItem("filtered-movies");
+    localStorage.removeItem("is-shot-mode-active");
+    localStorage.removeItem("movies-search-value");
+    localStorage.removeItem("movies");
+
+    setSavedMovies([]);
     setIsLoggedIn(false);
+    setIsSavedMoviesApiUploaded(false);
     navigate("/");
   };
 
-  const handleEditProfile = (name, email, setInfoMessage, setErrorApi) => {
+  const handleEditProfile = (data, setInfoMessage, setErrorApi) => {
     const jwt = localStorage.getItem("jwt");
 
     mainApi
-      .patchProfile(name, email, jwt)
+      .patchProfile(data, jwt)
       .then(({ data }) => {
         setCurrentUser({ name: data.name, email: data.email });
         setInfoMessage('Данные успешно обновлены!')
@@ -147,7 +169,6 @@ const App = () => {
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
         <Routes>
-
           <Route
             path="/movies"
             element={
@@ -157,6 +178,8 @@ const App = () => {
                 savedMovies={savedMovies}
                 handlePutLikeCard={handlePutLikeCard}
                 handleDeleteLikeCard={handleDeleteLikeCard}
+                isSavedMoviesApiUploaded={isSavedMoviesApiUploaded}
+                uploadSavedMoviesFromApi={uploadSavedMoviesFromApi}
               />
             }
           />
@@ -168,6 +191,8 @@ const App = () => {
                 isLoggedIn={isLoggedIn}
                 moviesItems={savedMovies}
                 handleDeleteLikeCard={handleDeleteLikeCard}
+                isSavedMoviesApiUploaded={isSavedMoviesApiUploaded}
+                uploadSavedMoviesFromApi={uploadSavedMoviesFromApi}
               />
             }
           />

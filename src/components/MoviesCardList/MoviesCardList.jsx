@@ -19,8 +19,6 @@ const MoviesCardList = ({
   const maxCountCards = countRow * factor;
   const moviesItemsRendered = isHaveBtnMore ? moviesItems.slice(0, maxCountCards) : moviesItems;
 
-
-
   useEffect(() => {
     const handleResizeListener = () => {
       handleResize(setFactor, [4, 3, 2, 2]);
@@ -61,22 +59,17 @@ const MoviesCardList = ({
   return (
     <section className='movies-card-list'>
       <div className='movies-card-list__container'>
-      <>
+        <>
           <ul className='movies-card-list__items'>
             {
               moviesItemsRendered.map(movie => (
                 <li key={isSavedPageModeActive ? movie._id : movie.id}>
                   <MoviesCard
-                    title={movie.nameRU}
-                    imgLink={`https://api.nomoreparties.co${movie.image.url}`}
-                    isSaved={isSaved}
-                    isLike={isLikedCard(movie.id)}
-                    duration={movie.duration}
+                    isSavedPageModeActive={isSavedPageModeActive}
+                    isLiked={isLikedCard(movie.id)}
                     data={movie}
                     onPutLike={handlePutLikeCard}
                     onDeleteLikeCard={handleDeleteLikeCard}
-                    isSavedPageModeActive={isSavedPageModeActive}
-                    isLiked={isLikedCard(movie.id)}
                   />
                 </li>))
             }

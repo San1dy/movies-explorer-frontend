@@ -1,5 +1,6 @@
 import './Movies.css';
 import { useEffect, useState } from 'react';
+import { Navigate } from "react-router-dom";
 
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
@@ -7,10 +8,12 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import Preloader from '../Preloader/Preloader';
 import MessageContainer from '../MessageContainer/MessageContainer';
+
 import moviesApi from '../../utils/MoviesApi';
+
 import { ENTER_VALUE_IN_SEARCH, MOVIES_NOT_DATA, SERVER_MOVIES_ERROR } from '../../utils/constants';
 
-const Movies = ({ handlePutLikeCard, handleDeleteLikeCard, savedMovies }) => {
+const Movies = ({ handlePutLikeCard, handleDeleteLikeCard, savedMovies, uploadSavedMoviesFromApi }) => {
   const [cards, setCards] = useState([]);
   const [filteredCards, setFilteredCards] = useState([]);
   const [isLoadingApi, setIsLoadingApi] = useState(false);
@@ -18,6 +21,7 @@ const Movies = ({ handlePutLikeCard, handleDeleteLikeCard, savedMovies }) => {
   const [errorApi, setErrorApi] = useState(null);
   const [searchValue, setSearchValue] = useState('');
   const [isShotModeActive, setIsShotModeActive] = useState(false);
+
   useEffect(() => {
     const localStorageIsShotModeActive = JSON.parse(localStorage.getItem('is-shot-mode-active')) || false;
     const localStorageItemFilteredMovies = JSON.parse(localStorage.getItem('filtered-movies')) || [];
@@ -29,6 +33,8 @@ const Movies = ({ handlePutLikeCard, handleDeleteLikeCard, savedMovies }) => {
     setSearchValue(localStorageItemMoviesSearchValue);
     setIsShotModeActive(localStorageIsShotModeActive);
     setIsApiDataUploaded(localStorageItemMovies !== null)
+
+    uploadSavedMoviesFromApi();
   }, []);
 
   const setFilteredCardsArrayInLocalStorage = (cards, searchValue) => {
@@ -70,37 +76,39 @@ const Movies = ({ handlePutLikeCard, handleDeleteLikeCard, savedMovies }) => {
     localStorage.setItem('is-shot-mode-active', isShotModeActive);
     localStorage.setItem('movies-search-value', JSON.stringify(searchValue));
   }
+
   return (
     <>
       <Header isAuth={true} backgroundColor="#202020" />
       <main>
-      <SearchForm
+        <SearchForm
           onSearch={handleSearch}
           isShotModeActive={isShotModeActive}
           setIsShotModeActive={setIsShotModeActive}
           value={searchValue}
           setValue={setSearchValue}
         />
-      {
+
+        {
           errorApi
-          ? <MessageContainer
-          message={SERVER_MOVIES_ERROR}
-          />
-          : (isLoadingApi
-            ? <Preloader />
-            : !isApiDataUploaded
-            ? <MessageContainer message={ENTER_VALUE_IN_SEARCH} />
-              : filteredCards.length !== 0
-              ? <MoviesCardList
-              isSavedPageModeActive={false}
-              moviesItems={filteredCards}
-              handlePutLikeCard={handlePutLikeCard}
-              handleDeleteLikeCard={handleDeleteLikeCard}
-              savedMovies={savedMovies}
-              isHaveBtnMore={true}
+            ? <MessageContainer
+              message={SERVER_MOVIES_ERROR}
             />
-            : <MessageContainer message={MOVIES_NOT_DATA} />)
-      }
+            : (isLoadingApi
+              ? <Preloader />
+              : !isApiDataUploaded
+                ? <MessageContainer message={ENTER_VALUE_IN_SEARCH} />
+                : filteredCards.length !== 0
+                  ? <MoviesCardList
+                    isSavedPageModeActive={false}
+                    moviesItems={filteredCards}
+                    handlePutLikeCard={handlePutLikeCard}
+                    handleDeleteLikeCard={handleDeleteLikeCard}
+                    savedMovies={savedMovies}
+                    isHaveBtnMore={true}
+                  />
+                  : <MessageContainer message={MOVIES_NOT_DATA} />)
+        }
       </main>
       <Footer />
     </>

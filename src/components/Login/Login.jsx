@@ -1,37 +1,26 @@
-import { Link, useNavigate} from 'react-router-dom';
-import { useState, useEffect } from 'react';
 import './Login.css';
+import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
+import { PATTERN_EMAIL } from '../../utils/constants';
 
 const Login = ({ handleLogin, isLoggedIn }) => {
   const navigate = useNavigate();
 
-  const [formValue, setFormValue] = useState({
-    email: "",
-    password: "",
-  });
+  const [errorApi, setErrorApi] = useState({});
+
+  const { values, handleChange, errors, isValid } = useFormWithValidation();
 
   useEffect(() => {
     if (isLoggedIn) {
       navigate("/movies");
     }
-
-    // if (isLoggedIn) {
-    //   navigate("/movies");
-    // }
   }, [isLoggedIn, navigate]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setFormValue({
-      ...formValue,
-      [name]: value,
-    });
-  };
 
   const onLogin = (e) => {
     e.preventDefault();
-    handleLogin({ password: formValue.password, email: formValue.email })
+    handleLogin({ password: values.password, email: values.email, setErrorApi })
   }
 
   return (
@@ -55,10 +44,13 @@ const Login = ({ handleLogin, isLoggedIn }) => {
                 name="email"
                 placeholder='Введите email'
                 onChange={handleChange}
-                value={formValue.email}
+                value={values.email || ''}
+                pattern="\S+@\S+\.\S+"
                 required
               />
-              <p className='login__input-error'>Что-то пошло не так...</p>
+              <p className={`login__input-error ${errors.email && 'login__input-error_visible'}`}>
+                {errors.email}
+              </p>
             </div>
             <div className='login__input-container'>
               <p className='login__input-title'>
@@ -70,14 +62,24 @@ const Login = ({ handleLogin, isLoggedIn }) => {
                 name="password"
                 placeholder='Введите пароль'
                 onChange={handleChange}
-                value={formValue.password}
+                value={values.password || ''}
                 required
               />
-              <p className='login__input-error'>Что-то пошло не так...</p>
+              <p className={`login__input-error ${errors.password ? 'login__input-error_visible' : ''}`}>
+                {errors.password}
+              </p>
             </div>
           </div>
           <div className='login__btns'>
-            <button className='login__btn-auth'>Войти</button>
+            <p className={`login__err-message ${errorApi.message ? 'login__err-message_visible' : ''}`}>
+              {errorApi.message}
+            </p>
+            <button
+              className={`login__btn-auth ${!isValid ? 'login__btn-auth_disabled' : ''}`}
+              disabled={!isValid}
+            >
+              Войти
+            </button>
             <div className='login__footer-link-container'>
               <p className='login__footer-link-text'>
                 Ещё не зарегистрированы?

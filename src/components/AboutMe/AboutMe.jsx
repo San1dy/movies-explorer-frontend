@@ -1,7 +1,7 @@
 import SectionTitle from '../SectionTitle/SectionTitle';
 import './AboutMe.css';
 
-function AboutMe() {
+const AboutMe = () => {
   return (
     <section className='about-me' id="about-me">
       <div className='about-me__container'>
@@ -16,10 +16,10 @@ function AboutMe() {
                 Фронтенд-разработчик, 24 года
               </h4>
               <p className='about-me__text'>
-                Я родился в Чувашии, сейчас проижваю в Калуге, закончил КФ МГТУ им.Баумана 
+                Я родился в Чувашии, сейчас проижваю в Калуге, закончил КФ МГТУ им.Баумана
                 факультет информационных технологий. Женат. Сейчас, заканчивая курс по веб-разработке
-                планирую активно искать работу по данному направлению. Люблю активную жизнь. 
-                Из спорта люблю как  баскетбол , так и футбол. 
+                планирую активно искать работу по данному направлению. Люблю активную жизнь.
+                Из спорта люблю как  баскетбол , так и футбол.
               </p>
             </div>
             <a className='about-me__github-link' href='https://github.com/San1dy'

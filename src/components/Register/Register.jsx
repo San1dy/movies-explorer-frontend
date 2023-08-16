@@ -1,6 +1,6 @@
+import './Register.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import './Register.css';
 
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
@@ -17,11 +17,11 @@ const Register = ({ handleRegister, isLoggedIn }) => {
     }
   }, [isLoggedIn, navigate]);
 
-
   const onRegister = (e) => {
     e.preventDefault();
     handleRegister({ password: values.password, email: values.email, name: values.name, setErrorApi })
   }
+
   return (
     <div className='register'>
       <header className='register__header'>
@@ -88,7 +88,7 @@ const Register = ({ handleRegister, isLoggedIn }) => {
             </div>
           </div>
           <div className='register__btns'>
-          <p className={`register__err-message ${errorApi.message ? 'register__err-message_visible' : ''}`}>
+            <p className={`register__err-message ${errorApi.message ? 'register__err-message_visible' : ''}`}>
               {errorApi.message}
             </p>
             <button
