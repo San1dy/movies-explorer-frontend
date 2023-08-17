@@ -1,18 +1,22 @@
 import './Profile.css';
+import { useState, useContext, useEffect } from 'react';
 
 import Header from '../Header/Header';
-import { useState, useContext, useEffect } from 'react';
+
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
 const Profile = ({ onSignOut, onEditProfile }) => {
   const { values, handleChange, errors, isValid, setValues } =
-  useFormWithValidation();
+    useFormWithValidation();
+
   const [isEditModeActivated, setIsEditModeActivated] = useState(false);
   const [isInputFocus, setIsInputFocus] = useState(false);
-    const [infoMessage, setInfoMessage] = useState('');
+  const [infoMessage, setInfoMessage] = useState('');
   const [errorApi, setErrorApi] = useState({});
+
   const currentUser = useContext(CurrentUserContext);
+
   const isNameEdited = currentUser.name !== values.name;
   const isEmailEdited = currentUser.email !== values.email
   const isValueEdited = isNameEdited || isEmailEdited;
@@ -24,7 +28,6 @@ const Profile = ({ onSignOut, onEditProfile }) => {
     })
   }, [])
 
-
   const handleSubmit = () => {
     let data = {};
 
@@ -34,6 +37,7 @@ const Profile = ({ onSignOut, onEditProfile }) => {
     if(isEmailEdited) {
       data.email = values.email
     }
+
     setIsEditModeActivated(false)
     onEditProfile(data, setInfoMessage, setErrorApi);
   }
@@ -50,7 +54,7 @@ const Profile = ({ onSignOut, onEditProfile }) => {
       <main className='profile'>
         <div className='profile__container'>
           <h1 className='profile__title'>
-          Привет, {currentUser.name}!
+            Привет, {currentUser.name}!
           </h1>
           <form className='profile__form'>
             <div className='profile__inputs'>
