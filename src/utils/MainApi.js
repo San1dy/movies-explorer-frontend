@@ -71,6 +71,7 @@ class MainApi {
   postRegister(password, email, name) {
     return fetch(`${this._baseUrl}/signup`, {
       method: "POST",
+      mode: 'no-cors',
       headers: this._headers,
       body: JSON.stringify({
         password,
