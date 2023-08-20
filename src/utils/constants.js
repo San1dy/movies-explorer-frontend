@@ -1,5 +1,3 @@
-
-
 const INCORRECT_EMAIL_OR_PASSWORD = 'Неправильная почта или пароль';
 const ERROR_ON_THE_SERVER = 'На сервере произошла ошибка';
 const INCORRECT_DATA_CREATE_USER = 'Переданы некорректные данные при создании пользователя';
