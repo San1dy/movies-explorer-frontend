@@ -15,6 +15,7 @@ class MainApi {
   getMovies({ jwt }) {
     return fetch(`${this._baseUrl}/movies`, {
       method: "GET",
+      credentials: 'include',
       headers: {
         ...this._headers,
         "Authorization": `Bearer ${jwt}`
@@ -38,6 +39,7 @@ class MainApi {
   }) {
     return fetch(`${this._baseUrl}/movies`, {
       method: "POST",
+      credentials: 'include',
       headers: {
         ...this._headers,
         "Authorization": `Bearer ${jwt}`
@@ -61,6 +63,7 @@ class MainApi {
   deleteMovie({ id, jwt }) {
     return fetch(`${this._baseUrl}/movies/${id}`, {
       method: "DELETE",
+      credentials: 'include',
       headers: {
         ...this._headers,
         "Authorization": `Bearer ${jwt}`
@@ -71,6 +74,7 @@ class MainApi {
   postRegister(password, email, name) {
     return fetch(`${this._baseUrl}/signup`, {
       method: "POST",
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
         password,
@@ -83,6 +87,7 @@ class MainApi {
   postLogin(password, email) {
     return fetch(`${this._baseUrl}/signin`, {
       method: "POST",
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
         password,
@@ -94,6 +99,7 @@ class MainApi {
   patchProfile({ name, email }, jwt) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
+      credentials: 'include',
       headers: {
         ...this._headers,
         "Authorization": `Bearer ${jwt}`
@@ -108,6 +114,7 @@ class MainApi {
   checkToken(jwt) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
+      credentials: 'include',
       headers: {
         ...this._headers,
         "Authorization": `Bearer ${jwt}`
