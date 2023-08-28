@@ -1,28 +1,28 @@
 {
   "files": {
-    "main.css": "/static/css/main.4a2f8b0b.css",
-    "main.js": "/static/js/main.8baf4cb0.js",
+    "main.css": "/static/css/main.7cf3cf9f.css",
+    "main.js": "/static/js/main.692bf35a.js",
     "static/media/Inter-Medium.woff": "/static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
     "static/media/Inter-Regular.woff": "/static/media/Inter-Regular.8c206db99195777c6769.woff",
     "static/media/Inter-Medium.woff2": "/static/media/Inter-Medium.293fd13dbca5a3e450ef.woff2",
     "static/media/Inter-Regular.woff2": "/static/media/Inter-Regular.c8ba52b05a9ef10f4758.woff2",
     "static/media/element__save-button.svg": "/static/media/element__save-button.b3d8109d17b3fec1231b.svg",
-    "static/media/promo-landing-logo.svg": "/static/media/promo-landing-logo.af94c78ed70fa79768b5.svg",
+    "static/media/promo-landing-logo.svg": "/static/media/promo-landing-logo.4850206398467b231111.svg",
     "index.html": "/index.html",
-    "static/media/loupe-icon.svg": "/static/media/loupe-icon.ec2dbd5ffb739bbf5cbc.svg",
+    "static/media/loupe-icon.svg": "/static/media/loupe-icon.9d65490bd05e8f3d78d3.svg",
     "static/media/profile-btn-icon.svg": "/static/media/profile-btn-icon.dda9fc578c6187efc47f.svg",
-    "static/media/element_delete-button.svg": "/static/media/element_delete-button.3888e0189effdea53508.svg",
+    "static/media/deleteIcon.svg": "/static/media/deleteIcon.4c01535ab1be398e7dc7.svg",
     "static/media/logo.svg": "/static/media/logo.25a2943c9f92a986c1fa.svg",
     "static/media/burger-btn-icon.svg": "/static/media/burger-btn-icon.111cfc3a3545a9ff785c.svg",
     "static/media/close-btn-icon.svg": "/static/media/close-btn-icon.128b4b070d39259dc44e.svg",
+    "static/media/likeActive.svg": "/static/media/likeActive.5e30fc0574521dda0ddd.svg",
     "static/media/loupe-btn-icon.svg": "/static/media/loupe-btn-icon.9e05fd03a882a51f379e.svg",
     "static/media/arrow-icon.svg": "/static/media/arrow-icon.21d4a41cbd169bf0c5fe.svg",
-    "static/media/element__save-button_active.svg": "/static/media/element__save-button_active.05d8e33ceef298e0e7e6.svg",
-    "main.4a2f8b0b.css.map": "/static/css/main.4a2f8b0b.css.map",
-    "main.8baf4cb0.js.map": "/static/js/main.8baf4cb0.js.map"
+    "main.7cf3cf9f.css.map": "/static/css/main.7cf3cf9f.css.map",
+    "main.692bf35a.js.map": "/static/js/main.692bf35a.js.map"
   },
   "entrypoints": [
-    "static/css/main.4a2f8b0b.css",
-    "static/js/main.8baf4cb0.js"
+    "static/css/main.7cf3cf9f.css",
+    "static/js/main.692bf35a.js"
   ]
 }
