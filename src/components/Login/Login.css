@@ -219,15 +219,14 @@
   color: #C2C2C2;
 }
 
-.login__btn-auth_disabled:hover {
-  opacity: 1;
-  cursor: default;
-}
-
-
 .login__btn-auth:hover {
   cursor: pointer;
   opacity: 0.8;
+}
+
+.login__btn-auth_disabled:hover {
+  opacity: 1;
+  cursor: default;
 }
 
 

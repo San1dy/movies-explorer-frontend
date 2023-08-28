@@ -11,7 +11,6 @@ import { portfolioProjectsConfig } from '../../config/portfolioProjectsConfig';
 import Portfolio from '../Portfolio/Portfolio';
 
 const Main = ({ isLoggedIn }) => {
-
   return (
     <>
       <Header isAuth={isLoggedIn} backgroundColor="#073042" />

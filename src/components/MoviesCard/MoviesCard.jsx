@@ -21,31 +21,28 @@ const MoviesCard = ({ data, isSavedPageModeActive, isLiked, onPutLike, onDeleteL
 
   return (
     <article className='movies-card'>
+      <div className="movies-card__element">
       <a className='movies-card__link' href={trailerLink} target="_blank" rel="noreferrer">
         <img className='movies-card__img' src={imgLink} alt={title} />
       </a>
-      <div className='movies-card__cover'>
-        <div className='movies-card__row'>
-          <h2 className='movies-card__title'>
-            {title}
-          </h2>
-          {isSavedPageModeActive
+        {isSavedPageModeActive
             ?
             <button className="movies-card__btn-delete" onClick={() => onDeleteLikeCard(moviedId, isSavedPageModeActive)} />
             :
             <div
-              className={`movies-card__indicator ${isLiked ? 'movies-card__indicator_active' : ''}`}
-              onClick={toggleLikeCard}
+            className={`movies-card__indicator ${isLiked ? 'movies-card__indicator_active' : ''}`}
+            onClick={toggleLikeCard}
             />
           }
-        </div>
-        <div className='movies-card__row'>
-          <p className='movies-card__time'>
-            {getDurationString(duration)}
-          </p>
-        </div>
       </div>
-
+      <div className='movies-card__cover'>
+          <h2 className='movies-card__title'>
+            {title}
+          </h2>
+          <p className='movies-card__time'>
+          {getDurationString(duration)}
+          </p>
+      </div>
     </article>
   );
 }

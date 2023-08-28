@@ -177,7 +177,6 @@
   transform: translateY(100%);
 }
 
-
 .profile__edit-btn {
   margin: 0 0 16px;
   padding: 0;
@@ -245,19 +244,14 @@
   }
 }
 
-.profile__save-btn_disabled:hover {
-  opacity: 1;
-  cursor: default;
-}
-
-.profile__save-btn_disabled {
-  background: #424242;
-  color: #C2C2C2;
-}
-
 .profile__save-btn:hover {
   cursor: pointer;
   opacity: 0.8;
+}
+
+.profile__save-btn_disabled:hover {
+  opacity: 1;
+  cursor: default;
 }
 
 .profile__error-msg {
