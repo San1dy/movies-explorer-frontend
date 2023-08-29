@@ -31,12 +31,8 @@ const Profile = ({ onSignOut, onEditProfile }) => {
   const handleSubmit = () => {
     let data = {};
 
-    if(isNameEdited) {
       data.name = values.name
-    }
-    if(isEmailEdited) {
       data.email = values.email
-    }
 
     setIsEditModeActivated(false)
     onEditProfile(data, setInfoMessage, setErrorApi);

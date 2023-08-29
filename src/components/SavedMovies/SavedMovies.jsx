@@ -1,5 +1,5 @@
 import './SavedMovies.css';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
@@ -16,7 +16,7 @@ const SavedMovies = ({ moviesItems, handleDeleteLikeCard, uploadSavedMoviesFromA
 
   useEffect(() => {
     uploadSavedMoviesFromApi();
-  }, [uploadSavedMoviesFromApi]);
+  }, []);
 
   useEffect(() => {
     const filteredCardsArray = moviesItems.filter(card => {
@@ -25,7 +25,7 @@ const SavedMovies = ({ moviesItems, handleDeleteLikeCard, uploadSavedMoviesFromA
     });
 
     setFilteredCards(filteredCardsArray);
-  }, [moviesItems, searchValue, isShotModeActive]);
+  }, [moviesItems]);
 
   const handleSearch = (e) => {
     e.preventDefault();
