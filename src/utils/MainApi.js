@@ -123,8 +123,7 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-  //baseUrl: "https://api.san1dy.nomoredomains.xyz",
-  baseUrl: "http://localhost:3001",
+  baseUrl: "https://api.san1dy.nomoredomains.xyz",
   headers: {
     "Content-Type": "application/json",
   },
