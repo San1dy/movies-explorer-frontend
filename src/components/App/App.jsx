@@ -116,11 +116,9 @@ const App = () => {
 
   const handleEditProfile = (data, setInfoMessage, setErrorApi) => {
     const jwt = localStorage.getItem("jwt");
-console.log(data);
     mainApi
       .patchProfile(data, jwt)
       .then(({ data }) => {
-        console.log(data);
         setCurrentUser({ name: data.name, email: data.email });
         setInfoMessage('Данные успешно обновлены!')
       })

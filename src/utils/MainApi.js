@@ -99,6 +99,7 @@ class MainApi {
   patchProfile({ name, email }, jwt) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
+      credentials: 'include',
       headers: {
         ...this._headers,
         "Authorization": `Bearer ${jwt}`
