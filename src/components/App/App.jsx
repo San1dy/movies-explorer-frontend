@@ -1,7 +1,7 @@
 import './App.css';
 
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useLocation } from "react-router-dom";
 
 import Main from '../Main/Main';
@@ -28,16 +28,7 @@ const App = () => {
   const [savedMovies, setSavedMovies] = useState([]);
   const [isSavedMoviesApiUploaded, setIsSavedMoviesApiUploaded] = useState(false);
 
-  useEffect(() => {
-    const jwt = localStorage.getItem("jwt");
-
-    if (jwt) {
-      checkToken(jwt);
-      uploadSavedMoviesFromApi();
-    }
-  }, [])
-
-  const checkToken = (jwt, pathRedirect) => {
+  const checkToken = useCallback((jwt, pathRedirect) => {
     mainApi
       .checkToken(jwt)
       .then(({ data }) => {
@@ -49,9 +40,9 @@ const App = () => {
         console.log(err);
         setIsLoggedIn(false);
       });
-  }
+  }, [navigate, pathname]);
 
-  const uploadSavedMoviesFromApi = () => {
+  const uploadSavedMoviesFromApi = useCallback(() => {
     const jwt = localStorage.getItem("jwt");
 
     if (!isSavedMoviesApiUploaded) {
@@ -65,7 +56,18 @@ const App = () => {
           console.log(err);
         })
     }
-  }
+  }, [isSavedMoviesApiUploaded]);
+
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+
+    if (jwt) {
+      checkToken(jwt);
+      uploadSavedMoviesFromApi();
+    }
+  }, [checkToken, uploadSavedMoviesFromApi]);
+
+
 
   const handleRegister = ({ password, email, name, setErrorApi }) => {
     mainApi

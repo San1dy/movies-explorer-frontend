@@ -21,11 +21,11 @@ const MoviesCardList = ({
 
   useEffect(() => {
     const handleResizeListener = () => {
-      handleResize(setFactor, [4, 3, 2, 2]);
+      handleResize(setFactor, [3, 2, 1]);
     }
 
-    handleResize(setInitCountCards, [16, 12, 8, 4]);
-    handleResize(setFactor, [4, 3, 2, 2]);
+    handleResize(setInitCountCards, [ 12, 8, 4]);
+    handleResize(setFactor, [ 3, 2, 1]);
 
     window.addEventListener('resize', handleResizeListener);
 
@@ -37,17 +37,15 @@ const MoviesCardList = ({
   const handleResize = (func, params) => {
     const screenWidth = window.innerWidth;
 
-    if (screenWidth > 1279) {
+
+    if (screenWidth >= 1260) {
       func(params[0]);
     }
-    if (screenWidth > 1024 && screenWidth < 1280) {
+    if (screenWidth >= 768 && screenWidth < 1260) {
       func(params[1]);
     }
-    if (screenWidth > 767 && screenWidth < 1025) {
-      func(params[2]);
-    }
     if (screenWidth < 768) {
-      func(params[3]);
+      func(params[2]);
     }
 
   };

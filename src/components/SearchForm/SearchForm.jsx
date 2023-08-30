@@ -26,7 +26,8 @@ const SearchForm = ({ onSearch, value, isShotModeActive, setIsShotModeActive, se
             <button
               className={`search-form__toggle-btn ${isShotModeActive ? 'search-form__toggle-btn_active' : ''}`}
               onClick={() => setIsShotModeActive(!isShotModeActive)}
-              type='button'
+              type="checkbox"
+              checked={isShotModeActive}
             />
             <p className='search-form__toggle-text'>Короткометражки</p>
           </div>
